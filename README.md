@@ -10,7 +10,7 @@ artifact.
 - `proofs/family.fontproof` is a proof document authored in Hellbox (here via
   the CLI: `hellbox --proof fonts/... --save-doc`). It proofs
   [Space Grotesk](https://github.com/floriankarsten/space-grotesk) (SIL OFL),
-  all four named instances, using the comprehensive "Idiot Proof" template: character sets, spacing and kerning tests, diacritics, waterfalls, and more, across every section type Hellbox ships (~200 pages).
+  all four named instances, structured after Ohno Type Co's "Proof it!" essay: big character boards, a complete glyph grid with metric lines, HH/OO and nn/oo spacing strings, kerning text, original reading copy at 8/11/14/21pt, and a tracking test from 0 to +20.
 - `proofs/fonts/` holds the font binaries. Hellbox resolves fonts relative to
   the document, so the committed proof renders on any machine (Hellbox 1.20.2+).
 - `.github/workflows/proof.yml` installs Hellbox, runs `--render-check`
