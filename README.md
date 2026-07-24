@@ -32,3 +32,5 @@ Full guide: [hellbox.com/docs/ci](https://hellbox.com/docs/ci)
 
 Space Grotesk is included under the SIL Open Font License (see `OFL.txt`).
 The workflow and configuration are MIT.
+
+> Tip: the workflow pushes a "Render proof" commit after each run, so `git pull --rebase` before pushing from your machine.
