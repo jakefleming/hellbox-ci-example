@@ -1,0 +1,38 @@
+name: Proof
+on: [push, pull_request]
+
+jobs:
+  proof:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      # In a real font repo, build your fonts here (fontmake, etc.) and
+      # place the binaries where the committed .fontproof expects them:
+      # next to the document, or in fonts/ beside it. This example
+      # commits the font binary directly.
+
+      - name: Install Hellbox
+        run: |
+          curl -sL -o Hellbox.dmg \
+            https://jakefleming.github.io/font-proof-swift/downloads/Hellbox-1.20.2.dmg
+          hdiutil attach Hellbox.dmg -nobrowse -quiet
+          cp -R /Volumes/Hellbox/Hellbox.app /Applications/
+          hdiutil detach /Volumes/Hellbox -quiet
+
+      - name: Render check
+        run: |
+          HELLBOX=/Applications/Hellbox.app/Contents/MacOS/Hellbox
+          "$HELLBOX" --render-check proofs/family.fontproof > check.json
+          cat check.json
+          jq -e '(.coverageIssues // []) + (.overflowIssues // []) | length == 0' check.json
+
+      - name: Export proof PDF
+        run: |
+          /Applications/Hellbox.app/Contents/MacOS/Hellbox \
+            --export proofs/family.fontproof proof.pdf
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: proof
+          path: proof.pdf
