@@ -17,7 +17,7 @@ artifact.
   (machine-readable coverage + overflow audit), gates the build on it, then
   exports the PDF artifact.
 
-Grab the rendered proof from any run's artifacts.
+Grab the rendered proof from any run's artifacts, or just open [proofs/family.pdf](proofs/family.pdf): the workflow commits the freshly rendered PDF back to the repo on every main push, so the proof you see is always current.
 
 ## Use it for your fonts
 

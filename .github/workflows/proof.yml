@@ -1,6 +1,9 @@
 name: Proof
 on: [push, pull_request]
 
+permissions:
+  contents: write
+
 jobs:
   proof:
     runs-on: macos-14
@@ -36,3 +39,15 @@ jobs:
         with:
           name: proof
           path: proof.pdf
+
+      # Keep a browsable, always-current proof in the repo itself.
+      # [skip ci] prevents the bot commit from retriggering this workflow.
+      - name: Commit rendered proof (main only)
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          cp proof.pdf proofs/family.pdf
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add proofs/family.pdf
+          git diff --cached --quiet || git commit -m "Render proof [skip ci]"
+          git push
