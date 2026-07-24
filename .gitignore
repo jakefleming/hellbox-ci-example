@@ -1,0 +1,4 @@
+*.profraw
+check.json
+proof.pdf
+.DS_Store
